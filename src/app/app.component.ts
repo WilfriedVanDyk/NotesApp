@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { APIService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NotesApp';
+ 
+  constructor(apiService: APIService) {
+    apiService.getUsers().subscribe((data) =>
+    console.log(data));
+    
+  }
 }
