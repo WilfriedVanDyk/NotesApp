@@ -9,7 +9,7 @@ export class APIService {
   constructor(private http: HttpClient) { }
 
   getUsers = () => {
-     return this.http.get('https://glitch.com/~jensjorisdecorte-backend-example-1/users');
+     return this.http.get('https://glitch.com/~jensjorisdecorte-backend-example-5/users');
    
    
   }
