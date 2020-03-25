@@ -6,12 +6,13 @@ import { APIService } from './api.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'NotesApp';
- 
+
   constructor(apiService: APIService) {
-    apiService.getUsers().subscribe((data) =>
-    console.log(data));
-    
+    apiService.getUsers().subscribe((data) => {
+      console.log(data);
+    })
   }
 }
