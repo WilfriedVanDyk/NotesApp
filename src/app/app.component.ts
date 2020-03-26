@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { APIService } from './api.service';
-
+import {NgModule} from '@angular/core';
 
 interface Gebruiker{
  
@@ -15,25 +15,27 @@ interface Gebruiker{
 })
 
 export class AppComponent {
-  title = 'NotesApp';
+  
+title = 'NotesApp';
 
 userList: Array<Gebruiker>;
 service: APIService;
 displayedColumns: string[] = ["Id", "Naam"];
 dataSource = this.userList;
 ingegevenNaam:string;
+
   constructor(apiService: APIService) {
     this.service=apiService;
     apiService.getUsers().subscribe((data:Array<Gebruiker>) => {
-      //console.log(data);
+      console.log(data);
       this.userList=data;
     });
   }
 
 
-  //welke parameters moet ik hier ingeven????
+  //welke parameters moet ik hier ingeven???? maw hoe geef ik de "ingegevenNaam" in de addUserHttp route???
   AddUserComponent = () => {
-    this.service.AddUser().subscribe(name);
+    this.service.AddUser().subscribe();
     
   }
  
