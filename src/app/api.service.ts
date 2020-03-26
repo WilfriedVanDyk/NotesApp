@@ -13,4 +13,8 @@ export class APIService {
      //return this.http.get('http://localhost:8081/users'); 
   }
 
+  AddUser = () => {
+    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add');
+  }
+
 }
