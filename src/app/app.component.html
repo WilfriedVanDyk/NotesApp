@@ -36,7 +36,7 @@
 <!-- //maak ik hier een button met een veld om een naam in te voegen?  wat betekent hier die ngModel??? waarom die fout? -->
 <!-- hoe krijg ik die naam in de http request -->
  <div>
-    <button  mat-raised-button (click)="AddUserComponent">Voeg een naam toe: </button>
+    <button  mat-raised-button (click)="AddUserComponent()">Voeg een naam toe: </button>
     <mat-form-field  appearance="fill">
         <mat-label class="belangrijk">vul een naam in!</mat-label>
         <input matInput min="1" max="50" type="string" [(ngModel)]="ingegevenNaam" #ctrl="ngModel" required

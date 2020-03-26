@@ -16,8 +16,9 @@ export class APIService {
 
 
   //add?name={{Bart}}
-  AddUser = () => {
-    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add');
+  AddUser = (naam:string) => {
+    //replace
+    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add?name='+naam);
 
   }
 
