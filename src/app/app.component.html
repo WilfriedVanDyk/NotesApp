@@ -1,2 +1,34 @@
 <p >{{title}}</p>
 
+<div *ngFor="let user of userList; index as id">
+
+    <li>
+        <a [title]="user.name">
+            {{user.name}}
+        </a>
+    </li>
+
+</div>
+
+<div id="tabelUsers" fxLayout="row wrap">
+    
+    <div fxFlex="30" fxLayout="column" fxFlex.xs="100%">
+        <table  mat-table [dataSource]="userList"
+            class="mat-elevation-z8">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Naam </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+        </table>
+    </div>
+</div> 

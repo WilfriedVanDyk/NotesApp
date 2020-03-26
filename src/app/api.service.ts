@@ -9,9 +9,8 @@ export class APIService {
   constructor(private http: HttpClient) { }
 
   getUsers = () => {
-     return this.http.get('https://glitch.com/~jensjorisdecorte-backend-example-5/users');
-   
-   
+     return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/users');   
+     //return this.http.get('http://localhost:8081/users'); 
   }
 
 }
