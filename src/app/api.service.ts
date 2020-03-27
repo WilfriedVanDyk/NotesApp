@@ -17,9 +17,20 @@ export class APIService {
 
   //add?name={{Bart}}
   AddUser = (naam:string) => {
-    //replace
+    //replace om de witte spaties eruit te halen en er plussen van te maken
     return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add?name='+naam);
 
   }
+//addnote?name=Bart&content=Dit+is+een+voorbeeld+notitie 
+  AddNotitie = (naam:string, notitie:string) => {
+    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/addnote?name='+naam+'&content='+notitie);
+  }
 
+  DeleteGebruikerEnNotitie = (naam:string) => {
+    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/remove?name='+naam);
+  }
+
+  GetNotes = (naam:string) => {
+    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/notes?name='+naam);
+  }
 }

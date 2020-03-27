@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import { APIService } from './api.service';
 import { NgModule } from '@angular/core';
+import { Subscriber } from 'rxjs';
+import { stringify } from 'querystring';
+import { element } from 'protractor';
 
 interface Gebruiker {
-
   name: string;
   id: Number;
+}
+
+interface Notities {
+  id: number,
+  content: string,
+  userId: number,
 }
 
 @Component({
@@ -19,10 +27,16 @@ export class AppComponent {
   title = 'NotesApp';
 
   userList: Array<Gebruiker>;
+  noteList: Array<Notities>;
   service: APIService;
-  displayedColumns: string[] = ["Id", "Naam"];
-  dataSource = this.userList;
-  ingegevenNaam: string;
+  displayedColumnsUsers: string[] = ["Id", "Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Notitie",
+  displayedColumnsNotes: string[] = ["id","content","userId"];
+  naamNotitiesOphalen: string;
+  ingegevenNaamToevoegen: string;
+  ingegevenNaamNotitie: string;
+  notitieToevoegen: string;
+  wordtNotitieToegevoegd: boolean = false;
+ toonNotities:boolean=false;
 
   constructor(apiService: APIService) {
     this.service = apiService;
@@ -32,17 +46,64 @@ export class AppComponent {
     });
   }
 
+  UserlistRefresh = () => this.service.getUsers().subscribe((data: Array<Gebruiker>) => {
+    console.log(data);
+    this.userList = data;
+  });
 
-  //welke parameters moet ik hier ingeven???? maw hoe geef ik de "ingegevenNaam" in de addUserHttp route???
+  //NoteListRefresh = () => this.service.
+
   AddUserComponent = () => {
-    console.log("wat is dat hier?");
-    this.service.AddUser(this.ingegevenNaam).subscribe((response) => {
+    // console.log("wat is dat hier?");
+    this.service.AddUser(this.ingegevenNaamToevoegen).subscribe((response) => {
       console.log(response);
-      //if response .error
-      this.service.getUsers().subscribe((data: Array<Gebruiker>) => {
-        console.log(data);
-        this.userList = data;
-      })
-    })} 
- 
+      //if response .error en dit weergeven in de browser
+      this.UserlistRefresh();
+    });
+  }
+
+  AddNotitieComponent = () => {
+    console.log("Notitie toegevoegd");
+    this.service.AddNotitie(this.ingegevenNaamNotitie, this.notitieToevoegen).subscribe((response) => {
+      console.log(response);
+      this.wordtNotitieToegevoegd = false;
+      this.notitieToevoegen = "";
+    });
+  }
+
+  AddNotitieComponentTabel = (naamNotitieToevoegen: string) => {
+    console.log("addNotitieTabel: " + naamNotitieToevoegen);
+    this.wordtNotitieToegevoegd = true;
+    this.ingegevenNaamNotitie = naamNotitieToevoegen;
+  }
+
+
+  DeleteGebruikerEnNotitieComponent = (naamVerwijderen: string) => {
+    console.log("verwijder gebruiker:" + naamVerwijderen);
+    this.service.DeleteGebruikerEnNotitie(naamVerwijderen).subscribe((response) => {
+      console.log(response);
+      this.UserlistRefresh();
+
+    });
+  }
+
+  
+
+  // NoteListRefresh = (naamAlleNotities:string) => this.service.GetNotes(naamAlleNotities).subscribe((data:Array<Notities>) => {
+  //     console.log(data);
+  //     this.noteList=data;
+  //  });
+
+  GetNotesComponent = (naamAlleNotities: string) => {
+    console.log("toon alle notities van:" + naamAlleNotities);
+    this.service.GetNotes(naamAlleNotities).subscribe((data:Array<Notities>) => {
+      console.log(data);
+      this.noteList=data;
+      this.toonNotities=true;
+     console.log(this.noteList);
+    });
+
+  }
+
+
 }
