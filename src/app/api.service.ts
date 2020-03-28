@@ -15,7 +15,7 @@ export class APIService {
 
 
 
-  //add?name={{Bart}}
+  
   AddUser = (naam:string) => {
     //replace om de witte spaties eruit te halen en er plussen van te maken
     return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add?name='+naam);

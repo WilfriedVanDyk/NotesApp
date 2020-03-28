@@ -29,14 +29,18 @@ export class AppComponent {
   userList: Array<Gebruiker>;
   noteList: Array<Notities>;
   service: APIService;
-  displayedColumnsUsers: string[] = ["Id", "Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Notitie",
-  displayedColumnsNotes: string[] = ["id","content","userId"];
+  displayedColumnsUsers: string[] = ["Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
+  displayedColumnsNotes: string[] = ["content"];//"id", ,"userId"
   naamNotitiesOphalen: string;
   ingegevenNaamToevoegen: string;
   ingegevenNaamNotitie: string;
   notitieToevoegen: string;
   wordtNotitieToegevoegd: boolean = false;
- toonNotities:boolean=false;
+  toonNotities: boolean = false;
+  user: string;
+  boodschapNaamToevoegen: string;
+  boodschapObject;
+  verwijderGebruikerBoodschap: string;
 
   constructor(apiService: APIService) {
     this.service = apiService;
@@ -51,15 +55,27 @@ export class AppComponent {
     this.userList = data;
   });
 
-  //NoteListRefresh = () => this.service.
-
   AddUserComponent = () => {
-    // console.log("wat is dat hier?");
+    if (this.ingegevenNaamToevoegen == undefined) {
+      this.boodschapNaamToevoegen = "u hebt niets ingevuld";
+      return;
+    }
+
     this.service.AddUser(this.ingegevenNaamToevoegen).subscribe((response) => {
       console.log(response);
-      this.toonNotities=false;
-      //if response .error en dit weergeven in de browser
+
+      this.boodschapNaamToevoegen = JSON.stringify(response);
+      this.boodschapObject = JSON.parse(this.boodschapNaamToevoegen);
+      if (this.boodschapObject.success == undefined) {
+        this.boodschapNaamToevoegen = this.boodschapObject.error;
+      } else {
+        this.boodschapNaamToevoegen = this.boodschapObject.success;
+      }
+
+      this.toonNotities = false;
       this.UserlistRefresh();
+      this.ingegevenNaamToevoegen = "";
+
     });
   }
 
@@ -69,7 +85,8 @@ export class AppComponent {
       console.log(response);
       this.wordtNotitieToegevoegd = false;
       this.notitieToevoegen = "";
-      this.toonNotities=false;
+      this.boodschapNaamToevoegen="";
+      this.toonNotities = false;
     });
   }
 
@@ -77,21 +94,35 @@ export class AppComponent {
     console.log("addNotitieTabel: " + naamNotitieToevoegen);
     this.wordtNotitieToegevoegd = true;
     this.ingegevenNaamNotitie = naamNotitieToevoegen;
-    this.toonNotities=false;
+    this.toonNotities = false;
+    this.boodschapNaamToevoegen="";
   }
 
 
   DeleteGebruikerEnNotitieComponent = (naamVerwijderen: string) => {
-    console.log("verwijder gebruiker:" + naamVerwijderen);
+
     this.service.DeleteGebruikerEnNotitie(naamVerwijderen).subscribe((response) => {
+      this.verwijderGebruikerBoodschap = JSON.stringify(response);
+      this.boodschapObject = JSON.parse(this.verwijderGebruikerBoodschap);
+      console.log("een response: " + this.boodschapObject.success);
       console.log(response);
-      this.UserlistRefresh();
-      this.toonNotities=false;
+
+
+      if (this.boodschapObject.success == undefined) {
+        this.verwijderGebruikerBoodschap = this.boodschapObject.error;
+      } else {
+        this.verwijderGebruikerBoodschap = this.boodschapObject.success;
+      }
+
+      this.ingegevenNaamToevoegen = "",
+        this.UserlistRefresh();
+      this.toonNotities = false;
+      this.boodschapNaamToevoegen="";
 
     });
   }
 
-  
+
 
   // NoteListRefresh = (naamAlleNotities:string) => this.service.GetNotes(naamAlleNotities).subscribe((data:Array<Notities>) => {
   //     console.log(data);
@@ -100,11 +131,13 @@ export class AppComponent {
 
   GetNotesComponent = (naamAlleNotities: string) => {
     console.log("toon alle notities van:" + naamAlleNotities);
-    this.service.GetNotes(naamAlleNotities).subscribe((data:Array<Notities>) => {
+    this.service.GetNotes(naamAlleNotities).subscribe((data: Array<Notities>) => {
       console.log(data);
-      this.noteList=data;
-      this.toonNotities=true;
-     console.log(this.noteList);
+      this.noteList = data;
+      this.toonNotities = true;
+      this.user = naamAlleNotities;
+      console.log(this.noteList);
+      this.boodschapNaamToevoegen="";
     });
 
   }
