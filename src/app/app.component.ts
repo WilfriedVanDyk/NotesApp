@@ -61,6 +61,7 @@ export class AppComponent {
   PopUpAdduser = () => {
     this.addUser=true;
     this.wordtNotitieToegevoegd=false;
+    this.toonNotities=false;
   }
 
   AddUserComponent = () => {
