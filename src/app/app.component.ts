@@ -60,6 +60,7 @@ export class AppComponent {
 
   PopUpAdduser = () => {
     this.addUser=true;
+    this.wordtNotitieToegevoegd=false;
   }
 
   AddUserComponent = () => {
@@ -175,6 +176,7 @@ export class AppComponent {
       this.wordtNotitieToegevoegd = false;
       this.isUserVerwijdert=false;
       this.ingegevenNaamNotitie = "";
+      this.addUser=false;
     });
   }
 }
