@@ -41,6 +41,8 @@ export class AppComponent {
   boodschapNaamToevoegen: string;
   boodschapObject;
   verwijderGebruikerBoodschap: string;
+  isUserVerwijdert: boolean=false;
+  addUser:boolean=false;
 
   constructor(apiService: APIService) {
     this.service = apiService;
@@ -55,9 +57,13 @@ export class AppComponent {
     this.userList = data;
   });
 
+  PopUpAdduser = () => {
+    this.addUser=true;
+  }
+
   AddUserComponent = () => {
     if (this.ingegevenNaamToevoegen == undefined) {
-      this.boodschapNaamToevoegen = "u hebt niets ingevuld";
+      this.boodschapNaamToevoegen = "u hebt niets ingevuld. ";
       return;
     }
 
@@ -73,6 +79,9 @@ export class AppComponent {
       }
 
       this.toonNotities = false;
+      this.wordtNotitieToegevoegd = false;
+      this.isUserVerwijdert=false;
+      this.ingegevenNaamNotitie = "";
       this.UserlistRefresh();
       this.ingegevenNaamToevoegen = "";
 
@@ -85,8 +94,10 @@ export class AppComponent {
       console.log(response);
       this.wordtNotitieToegevoegd = false;
       this.notitieToevoegen = "";
-      this.boodschapNaamToevoegen="";
+      this.boodschapNaamToevoegen = "";
       this.toonNotities = false;
+      this.isUserVerwijdert=false;
+      this.addUser=false;
     });
   }
 
@@ -95,7 +106,9 @@ export class AppComponent {
     this.wordtNotitieToegevoegd = true;
     this.ingegevenNaamNotitie = naamNotitieToevoegen;
     this.toonNotities = false;
-    this.boodschapNaamToevoegen="";
+    this.isUserVerwijdert=false;
+    this.addUser=false;
+    this.boodschapNaamToevoegen = "";
   }
 
 
@@ -117,8 +130,11 @@ export class AppComponent {
       this.ingegevenNaamToevoegen = "",
         this.UserlistRefresh();
       this.toonNotities = false;
-      this.boodschapNaamToevoegen="";
-
+      this.boodschapNaamToevoegen = "";
+      this.wordtNotitieToegevoegd = false;
+      this.addUser=false;
+      this.ingegevenNaamNotitie = "";
+      this.isUserVerwijdert=true;
     });
   }
 
@@ -137,10 +153,10 @@ export class AppComponent {
       this.toonNotities = true;
       this.user = naamAlleNotities;
       console.log(this.noteList);
-      this.boodschapNaamToevoegen="";
+      this.boodschapNaamToevoegen = "";
+      this.wordtNotitieToegevoegd = false;
+      this.isUserVerwijdert=false;
+      this.ingegevenNaamNotitie = "";
     });
-
   }
-
-
 }

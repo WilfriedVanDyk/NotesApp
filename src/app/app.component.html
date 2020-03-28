@@ -41,14 +41,18 @@
     </div>
 </div>
 
-
 <div>
+    <button (click)="PopUpAdduser()">Gebruiker Toevoegen?</button>
+</div>
+
+
+<div *ngIf="addUser">
     <button mat-raised-button (click)="AddUserComponent()">Voeg een naam toe: </button>
     <mat-form-field id="naamToevoegen" appearance="fill" >
-        <mat-label>vul een naam in! {{boodschapNaamToevoegen}}</mat-label>
+        <mat-label>Vul een naam in! </mat-label>
         <input  matInput min="1" max="50" type="string" [(ngModel)]="ingegevenNaamToevoegen" #ctrl="ngModel" required
             placeholder="max 50 letters">
-        <mat-hint>niet langer dan 50 letters!</mat-hint>
+        <mat-hint>{{boodschapNaamToevoegen}}</mat-hint>
     </mat-form-field>
 </div>
 
@@ -64,8 +68,8 @@
     </mat-form-field>
 </div>
 
-<div>
-  is de user verwijdert,  {{verwijderGebruikerBoodschap}}
+<div *ngIf="isUserVerwijdert">
+    {{verwijderGebruikerBoodschap}}
 </div>
 
 <div *ngIf="toonNotities">
