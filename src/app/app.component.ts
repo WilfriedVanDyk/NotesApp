@@ -39,6 +39,7 @@ export class AppComponent {
   toonNotities: boolean = false;
   user: string;
   boodschapNaamToevoegen: string;
+  boodschapToevoegen:string;
   boodschapObject;
   verwijderGebruikerBoodschap: string;
   isUserVerwijdert: boolean=false;
@@ -89,20 +90,37 @@ export class AppComponent {
   }
 
   AddNotitieComponent = () => {
+
+    if (this.notitieToevoegen === undefined) {
+      this.boodschapToevoegen = "u hebt niets ingevuld. ";
+      return;
+    }
     console.log("Notitie toegevoegd");
     this.service.AddNotitie(this.ingegevenNaamNotitie, this.notitieToevoegen).subscribe((response) => {
       console.log(response);
-      this.wordtNotitieToegevoegd = false;
+      this.boodschapToevoegen = JSON.stringify(response);
+      this.boodschapObject = JSON.parse(this.boodschapToevoegen);
+      if (this.boodschapObject.success == undefined) {
+        this.boodschapToevoegen = this.boodschapObject.error;
+      } else {
+        this.boodschapToevoegen = this.boodschapObject.success;
+      }
+
+
+       this.wordtNotitieToegevoegd = true;
       this.notitieToevoegen = "";
       this.boodschapNaamToevoegen = "";
       this.toonNotities = false;
       this.isUserVerwijdert=false;
       this.addUser=false;
+    
     });
+  
   }
 
   AddNotitieComponentTabel = (naamNotitieToevoegen: string) => {
     console.log("addNotitieTabel: " + naamNotitieToevoegen);
+    this.boodschapToevoegen="";
     this.wordtNotitieToegevoegd = true;
     this.ingegevenNaamNotitie = naamNotitieToevoegen;
     this.toonNotities = false;
