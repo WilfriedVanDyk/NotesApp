@@ -57,6 +57,7 @@ export class AppComponent {
     // console.log("wat is dat hier?");
     this.service.AddUser(this.ingegevenNaamToevoegen).subscribe((response) => {
       console.log(response);
+      this.toonNotities=false;
       //if response .error en dit weergeven in de browser
       this.UserlistRefresh();
     });
@@ -68,6 +69,7 @@ export class AppComponent {
       console.log(response);
       this.wordtNotitieToegevoegd = false;
       this.notitieToevoegen = "";
+      this.toonNotities=false;
     });
   }
 
@@ -75,6 +77,7 @@ export class AppComponent {
     console.log("addNotitieTabel: " + naamNotitieToevoegen);
     this.wordtNotitieToegevoegd = true;
     this.ingegevenNaamNotitie = naamNotitieToevoegen;
+    this.toonNotities=false;
   }
 
 
@@ -83,6 +86,7 @@ export class AppComponent {
     this.service.DeleteGebruikerEnNotitie(naamVerwijderen).subscribe((response) => {
       console.log(response);
       this.UserlistRefresh();
+      this.toonNotities=false;
 
     });
   }
