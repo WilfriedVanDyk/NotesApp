@@ -97,6 +97,11 @@ export class AppComponent {
       this.boodschapToevoegen = "u hebt niets ingevuld. ";
       return;
     }
+
+    //hier notitieToevoegen aanpassen met url-encoding
+
+    
+
     console.log("Notitie toegevoegd");
     this.service.AddNotitie(this.ingegevenNaamNotitie, this.notitieToevoegen).subscribe((response) => {
       console.log(response);

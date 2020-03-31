@@ -14,23 +14,50 @@ export class APIService {
   }
 
 
-
   
   AddUser = (naam:string) => {
     //replace om de witte spaties eruit te halen en er plussen van te maken
-    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add?name='+naam);
+    let naamEncoded=encodeURIComponent(naam);
+    let encodedUri= encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/add?name=')+naamEncoded;
+    return this.http.get(encodedUri);
+
+   // return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/add?name='+naam);
 
   }
 //addnote?name=Bart&content=Dit+is+een+voorbeeld+notitie 
   AddNotitie = (naam:string, notitie:string) => {
-    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/addnote?name='+naam+'&content='+notitie);
+    
+    
+    
+    let encodeUriDeel1=encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/addnote?name=');
+    let naamEncoded=encodeURIComponent(naam);
+    console.log("naam: "+naamEncoded);
+
+    let encodeUriDeel2=encodeURI('&content=');
+    let notitieEncoded=encodeURIComponent(notitie);
+    console.log("notitieEncoded: "+notitieEncoded);
+
+    let encodedUri=encodeUriDeel1 + naamEncoded + encodeUriDeel2 + notitieEncoded;
+    console.log(encodedUri)
+    return this.http.get(encodedUri);
+
+    //return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/addnote?name='+naam+'&content='+notitie);
   }
 
   DeleteGebruikerEnNotitie = (naam:string) => {
-    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/remove?name='+naam);
+    let naamEncoded=encodeURIComponent(naam);
+    let encodedUri= encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/remove?name=')+naamEncoded;
+    return this.http.get(encodedUri);
+    
+    //return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/remove?name='+naam);
   }
 
   GetNotes = (naam:string) => {
-    return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/notes?name='+naam);
+
+    let naamEncoded=encodeURIComponent(naam);
+    let encodedUri= encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/notes?name=')+naamEncoded;
+    return this.http.get(encodedUri);
+
+    //return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/notes?name='+naam);
   }
 }
