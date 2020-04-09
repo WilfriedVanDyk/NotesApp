@@ -21,14 +21,9 @@ interface Gebruiker {
     styleUrls: ['./Tabel.component.css']
 })
 export class TabelComponent implements OnInit {
-
-    // constructor() {
-    // }
-
-    // ngOnInit() {
-
-    // }
+    
     ngOnInit() {}
+    
     title = 'NotesApp';
 
     userList: Array<Gebruiker>;
@@ -118,9 +113,10 @@ export class TabelComponent implements OnInit {
           this.boodschapToevoegen = this.boodschapObject.success;
         }
   
-  
+        console.log(this.notitieToevoegen + "was de notitie");
          this.wordtNotitieToegevoegd = true;
         this.notitieToevoegen = "";
+        console.log(this.notitieToevoegen + "was de notitie");
         this.boodschapNaamToevoegen = "";
         this.toonNotities = false;
         this.isUserVerwijdert=false;

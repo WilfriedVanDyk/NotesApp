@@ -13,8 +13,7 @@ import { element } from 'protractor';
 
 export class AppComponent {
 
-  constructor() {
-
-  }
+  constructor() { }
+  currentItem:string="het toegevoegde element";
 
 }

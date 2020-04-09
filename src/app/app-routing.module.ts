@@ -6,6 +6,8 @@ const routes: Routes = [];
 
 import { TabelComponent } from './Tabel/Tabel.component';
 
+import { InputvoorbeeldComponent } from './inputFolder/inputVoorbeeld.component';
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
