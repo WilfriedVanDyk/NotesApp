@@ -11,9 +11,12 @@ import {MaterialModule} from './material.module';
 import { FormsModule } from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
+import {TabelComponent} from './Tabel/Tabel.component'
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TabelComponent,
   ],
   imports: [
     BrowserModule,
