@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { APIService } from '../api.service';
 import {Gebruiker} from '../gebruiker';
 import {Notities} from '../notities';
-
-
-
-
+//import {FormControl, Validators} from '@angular/forms';
 
 
 @Component({
@@ -16,20 +13,23 @@ import {Notities} from '../notities';
 export class TabelComponent implements OnInit {
 
   ngOnInit() { }
-
+   //categorieControl = new FormControl('', Validators.required);
+categorieArray: string[] = ["Privé","Werk","Vrije Tijd"];
   userList: Array<Gebruiker>=[];
   noteList: Array<Notities>=[];
    displayedColumnsUsers: string[] = ["Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
-  displayedColumnsNotes: string[] = ["content"];//"id", ,"userId"
+  displayedColumnsNotes: string[] = ["content", "categorie"];//"id", ,"userId"
   naamNotitiesOphalen: string;
   ingegevenNaamToevoegen: string;
   ingegevenNaamNotitie: string;
   notitieToevoegen: string;
+  categorieToevoegen:string;
   wordtNotitieToegevoegd: boolean = false;
   toonNotities: boolean = false;
   user: string;
   boodschapNaamToevoegen: string;
   boodschapToevoegen: string;
+  boodschapCategorieToevoegen:string;
   boodschapObject;
   verwijderGebruikerBoodschap: string;
   isUserVerwijdert: boolean = false;
@@ -81,27 +81,31 @@ export class TabelComponent implements OnInit {
   }
 
   AddNotitieComponent = () => {
-
     if (this.notitieToevoegen === undefined) {
       this.boodschapToevoegen = "u hebt niets ingevuld. ";
       return;
     }
 
-    console.log("Notitie toegevoegd");
-    this.service.AddNotitie(this.ingegevenNaamNotitie, this.notitieToevoegen).subscribe((response) => {
+    if (this.categorieToevoegen === undefined) {
+      this.boodschapCategorieToevoegen = "categorie selecteren aub ";     
+      return;
+    }
+    console.log("velden: " +this.notitieToevoegen + " " +this.categorieToevoegen);
+
+    
+    this.service.AddNotitie(this.ingegevenNaamNotitie, this.notitieToevoegen, this.categorieToevoegen).subscribe((response) => {
       console.log(response);
       this.boodschapToevoegen = JSON.stringify(response);
       this.boodschapObject = JSON.parse(this.boodschapToevoegen);
-      if (this.boodschapObject.success == undefined) {
+      if (this.boodschapObject.success === undefined) {
         this.boodschapToevoegen = this.boodschapObject.error;
       } else {
         this.boodschapToevoegen = this.boodschapObject.success;
       }
 
-      console.log(this.notitieToevoegen + "was de notitie");
       this.wordtNotitieToegevoegd = true;
       this.notitieToevoegen = "";
-      console.log(this.notitieToevoegen + "was de notitie");
+      this.categorieToevoegen ="";
       this.boodschapNaamToevoegen = "";
       this.toonNotities = false;
       this.isUserVerwijdert = false;

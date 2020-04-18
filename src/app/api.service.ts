@@ -40,14 +40,14 @@ export class APIService {
   //Request URL: http://localhost:3000/users/34/books/8989
   //req.params: { "userId": "34", "bookId": "8989" }
 
-  AddNotitie = (naam: string, notitie: string) => {
-    console.log('in de addNotitie binnen ' + naam + notitie);
+  AddNotitie = (naam: string, notitie: string, categorie: string) => {
+    console.log('in de addNotitie binnen ' + naam +" " + notitie+" "  + categorie);
     let encodedUri1 = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users/');
     let naamUri = encodeURIComponent(naam);
     let encodeUri2 = encodeURI('/notes');
     let encodedUri = encodedUri1 + naamUri + encodeUri2;
     console.log(encodedUri);
-    return this.http.post(encodedUri, { content: notitie });
+    return this.http.post(encodedUri, { content: notitie , categorie: categorie});
   }
 
   GetNotes = (naam: string):Observable<Notities[]> => {
