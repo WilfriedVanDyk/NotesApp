@@ -1,20 +1,19 @@
-#title { 
-    text-align: center;
-}
-
 div {
     margin:10px;
     background-color:rgb(134, 134, 173);
     align-items:center;
+   
 }
+
+
+
 button {
     margin: 5px;
 }
 
-
 #tabelNotities{
     margin-top: 50px;
-    min-width: 400px;
+    min-width: 350px;
     align-content:center;
     text-align: center;
     align-self: center;

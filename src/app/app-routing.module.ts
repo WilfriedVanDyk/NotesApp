@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
-const routes: Routes = [];
-
 import { TabelComponent } from './Tabel/Tabel.component';
 
-import { InputvoorbeeldComponent } from './inputFolder/inputVoorbeeld.component';
+//import { TitelComponent } from './Titel/Titel.component';
+
+const routes: Routes = [
+  {path:'Tabel', component:TabelComponent}
+];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

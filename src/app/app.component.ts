@@ -14,6 +14,5 @@ import { element } from 'protractor';
 export class AppComponent {
 
   constructor() { }
-  currentItem:string="het toegevoegde element";
-
+  title = 'NotesApp';
 }

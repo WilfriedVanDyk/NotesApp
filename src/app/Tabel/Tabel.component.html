@@ -1,6 +1,5 @@
-<div fxFlex fxLayout="column" fxLayoutGap="5px" style="height: 100vh">
-    <h1 id="title">{{title}}</h1>
-
+<div  id="root" fxFlex fxLayout="column" fxLayoutGap="5px" style="height: 100vh">
+    
       
     <div >
         <button id="addUser" (click)="PopUpAdduser()">Gebruiker Toevoegen?</button>
@@ -20,7 +19,7 @@
 
                 <ng-container matColumnDef="Naam">
                     <th mat-header-cell *matHeaderCellDef> Naam </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name | uppercase}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Notitie">
