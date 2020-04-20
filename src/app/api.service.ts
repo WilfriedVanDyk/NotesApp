@@ -52,11 +52,27 @@ export class APIService {
 
   GetNotes = (naam: string):Observable<Notities[]> => {
     let naamEncoded = encodeURIComponent(naam);
-    let encodedUri = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/notes?name=') + naamEncoded;
+    let encodedUri = encodeURI(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}`);
     return this.http.get<Notities[]>(encodedUri);
   }
 
+
+  //Te doen: 
+  //zoek in notities van een gebruiker
+ //filteren in de backend?
+  searchNotes(naam:string, term: string): Observable<Notities[]> {
+    if (!term.trim()) {
+      return of([]);
+    }    
+    let naamEncoded = encodeURIComponent(naam);
+    return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${term}`);
+  }
+    
+
+  //filter categorieën
+
   
-  //Te doen: Patch notitie (inhoud en/of categorie)
-  //        delete notitie
+  
+  //Patch notitie (inhoud en/of categorie)
+  //delete notitie
 }
