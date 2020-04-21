@@ -1,11 +1,12 @@
-import { Component, OnInit, Input ,OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, Input ,AfterViewInit, OnChanges, SimpleChanges,  } from '@angular/core'; //ViewChild
 
-import { Observable, Subject, observable, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, map, filter } from 'rxjs/operators';
 
 import { Notities } from '../notities';
 import { APIService } from '../api.service';
+//import {MatSort} from '@angular/material/sort';
 
 
 @Component({
@@ -16,48 +17,63 @@ import { APIService } from '../api.service';
 
 
 
-export class ZoekenContentNotitiesComponent implements OnInit,  OnChanges {
+export class ZoekenContentNotitiesComponent implements OnInit, OnChanges { //AfterViewInit,
   @Input() naamGebruiker: string;
-  @Input() tabelnotities: Observable<Notities>;    //Notities[];
+  @Input() tabelnotities: Observable<Notities>;
+  @Input() categorieArray:string[];
+
+  //@ViewChild(MatSort, {static: true}) sort: MatSort;
+  
+  categorieFilter:string;
   displayedColumnsNotes: string[] = ["content", "categorie", "verwijderen"];//"id", ,"userId"
 
   notities$: Observable<Notities[]>;
-  private searchTerms= new Subject<string>();
+  private searchTerms= new BehaviorSubject<string>("");
+ // private searchTerms= new Subject<string>();
   searchTermsObservable = this.searchTerms.asObservable();
+filterBoolean:boolean=true;
+  
 
-  changeLog=[];
+// ngAfterViewInit(){
+// 
+// }
+constructor(private service: APIService) { }
+
+  //changeLog=[];
   ngOnChanges(changes: SimpleChanges) {
-
-    for (let propName in changes) {
-      let chng = changes[propName];
-      let cur  = JSON.stringify(chng.currentValue);
-      let prev = JSON.stringify(chng.previousValue);
-      this.changeLog.push(`\n  ${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-    }
+    this.notities$ = this.searchTermsObservable.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => {
+       return this.service.searchNotes(this.naamGebruiker, term)})
+    );
+    this.search("");   
+  
+    // for (let propName in changes) {
+    //   let chng = changes[propName];
+    //   let cur  = JSON.stringify(chng.currentValue);
+    //   let prev = JSON.stringify(chng.previousValue);
+    //   this.changeLog.push(`\n  ${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+    // }
    }
+   ngOnInit(): void {
+     
+     
+    }
 
-  constructor(private service: APIService) { }
-  //this.notities$=this.service.GetNotes(this.naamGebruiker); } waarom is de gebruiker hier nog niet gekend???
+
+  
   // Push a search term into the observable stream.
   search(term: string): void {
+    //console.log("zoeken: "+term)
     this.searchTerms.next(term);
   }
 
 
-  ngOnInit(): void {
-    // if ( this.searchTerms===null ) {      //zou moeten false geven als de searchTerms niet =""  of niet null is
-      // this.notities$ = this.service.GetNotes(this.naamGebruiker);
-    // }
-    // else {
-      this.notities$ = this.searchTermsObservable.pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((term: string) => this.service.searchNotes(this.naamGebruiker, term)),
-      );
-    //}
-  }
-deleteNotitieBoodschap:string;
-boodschapObject;
+ 
+
+// deleteNotitieBoodschap:string;
+// boodschapObject;
   DeleteNotitie= (id:number) => {
     console.log("in de component: "+ id);
     if (window.confirm("Ben je zeker dat je deze notitie wil verwijderen?")) {
@@ -73,7 +89,18 @@ boodschapObject;
       // } else {
       //   this.deleteNotitieBoodschap = this.boodschapObject.succes;
       // }
+
     });
     }
+  }
+
+   Filter = () => {
+      console.log("categorie: "+this.categorieFilter);
+    //   if(this.filterBoolean===true){
+    //   this.filterBoolean=false;
+    // }else this.filterBoolean=true;
+   // return this.notities$.pipe(map(items => items.filter(item => item.categorie===this.categorieFilter))); //categorie
+    
+    
   }
 }

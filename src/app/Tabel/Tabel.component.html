@@ -98,33 +98,7 @@
         <!-- toont notities ----------------------------------------- -->
 
         <div *ngIf="toonNotities" fxFlex.xs="100%">
-<!-- 
-            <table id="tabelNotities" mat-table [dataSource]="noteList">
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> id </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-                <ng-container matColumnDef="userId">
-                    <th mat-header-cell *matHeaderCellDef> idName </th>
-                    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
-                </ng-container>
-                <ng-container matColumnDef="content">
-                    <th mat-header-cell *matHeaderCellDef> Notities van {{user}} </th>
-                    <td mat-cell *matCellDef="let element"> {{element.content}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="categorie">
-                    <th mat-header-cell *matHeaderCellDef> Categorie </th>
-                    <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsNotes"></tr>
-                <tr mat-row *matRowDef="let myRowData; columns: displayedColumnsNotes"></tr>
-            </table> -->
-
-            <app-zoeken-content-notities [naamGebruiker]="user" [tabelnotities]="noteList"> <!-- [tabelnotities]="noteList" -->
-            </app-zoeken-content-notities>
-
-
+            <app-zoeken-content-notities [naamGebruiker]="user" [tabelnotities]="noteList"   [categorieArray]="categorieArray"> </app-zoeken-content-notities>
         </div>
 
     </div>

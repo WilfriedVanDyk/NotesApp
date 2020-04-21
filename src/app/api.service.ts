@@ -63,6 +63,11 @@ export class APIService {
   //zoek in notities van een gebruiker///////////////////////////////////////////////////////////////////////
  //filteren in de backend?
   searchNotes = (naam:string, term: string): Observable<Notities[]> => {   
+
+    // if (!term.trim()) {
+    //   return of([]);
+    // }
+
     let naamEncoded = encodeURIComponent(naam);
     return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${term}`);
   }
