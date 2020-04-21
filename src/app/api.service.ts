@@ -30,10 +30,12 @@ export class APIService {
   DeleteGebruikerEnNotitie = (naam: string) => {
     console.log("in de service deletemethod!");
     let naamEncoded = encodeURIComponent(naam);
-    let encodedUri = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users?name=') + naamEncoded; //kan beter met /user?name=
+    let encodedUri = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users?name=') + naamEncoded; 
     console.log(encodedUri);
     return this.http.delete(encodedUri);
   }
+
+
 
   //routing in expres...
   //routing: Route path: /users/:userId/books/:bookId
@@ -58,21 +60,26 @@ export class APIService {
 
 
   //Te doen: 
-  //zoek in notities van een gebruiker
+  //zoek in notities van een gebruiker///////////////////////////////////////////////////////////////////////
  //filteren in de backend?
-  searchNotes(naam:string, term: string): Observable<Notities[]> {
-    if (!term.trim()) {
-      return of([]);
-    }    
+  searchNotes = (naam:string, term: string): Observable<Notities[]> => {   
     let naamEncoded = encodeURIComponent(naam);
     return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${term}`);
   }
     
 
-  //filter categorieën
+  //filter categorieën////////////////////////////////////////////////////////////////////////////////////////
 
   
   
-  //Patch notitie (inhoud en/of categorie)
-  //delete notitie
+  //Patch notitie (inhoud en/of categorie)/////////////////////////////////////////////////////////////////
+
+
+  //delete notitie////////////////////////////////////////////////////////////
+  DeleteNotitie = (id:number) => {
+    console.log("in deletenotitie binnen: "+ id)
+    
+    return this.http.delete(`https://jensjorisdecorte-backend-example-5.glitch.me/deleteNotitie/?id=${id}`);
+  }
+
 }

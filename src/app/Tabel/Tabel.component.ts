@@ -21,7 +21,7 @@ export class TabelComponent implements OnInit {
   userList: Array<Gebruiker> = [];
   noteList: Notities[];
   displayedColumnsUsers: string[] = ["Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
-  displayedColumnsNotes: string[] = ["content", "categorie"];//"id", ,"userId"
+  displayedColumnsNotes: string[] = ["content", "categorie", "verwijderen"];//"id", ,"userId"
 
   naamNotitiesOphalen: string;
   ingegevenNaamToevoegen: string;
@@ -150,9 +150,9 @@ export class TabelComponent implements OnInit {
 
  
 
-  FilterCategorie = (categorie:string) => {
-    //this.noteList.filter
-  }
+  // FilterCategorie = (categorie:string) => {
+  //   //this.noteList.filter
+  // }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
