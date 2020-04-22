@@ -11,13 +11,6 @@ export class APIService {
 
   constructor(private http: HttpClient) { }
 
-  
-  // //kan ook, maar is niet typeSafe
-  // getUsers = () => {
-  //   return this.http.get('https://jensjorisdecorte-backend-example-5.glitch.me/users');
-  // }
-
-  //typeSafe en gebruik maken van observable
   getUsers = () :Observable<Gebruiker[]> => {
     return this.http.get<Gebruiker[]>('https://jensjorisdecorte-backend-example-5.glitch.me/users');
   }
@@ -58,25 +51,21 @@ export class APIService {
     return this.http.get<Notities[]>(encodedUri);
   }
 
-
   //Te doen: 
   //zoek in notities van een gebruiker///////////////////////////////////////////////////////////////////////
- //filteren in de backend?
-  searchNotes = (naam:string, term: string): Observable<Notities[]> => {   
-
+  searchNotes = (naam:string, term: string, categorie:string):Observable<Notities[]> => {
     // if (!term.trim()) {
     //   return of([]);
     // }
-
     let naamEncoded = encodeURIComponent(naam);
-    return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${term}`);
+    let termEncoded=encodeURIComponent(term);
+let categorieEncoded=encodeURIComponent(categorie);
+    console.log("in apiService Search: "+naam +" term: " +term +" categorie: "+ categorie);
+    let http = `https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${termEncoded}&categorie=${categorieEncoded}`;
+    console.log(http);
+    return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${termEncoded}&categorie=${categorieEncoded}`);    
   }
-    
 
-  //filter categorieën////////////////////////////////////////////////////////////////////////////////////////
-
-  
-  
   //Patch notitie (inhoud en/of categorie)/////////////////////////////////////////////////////////////////
 
 
