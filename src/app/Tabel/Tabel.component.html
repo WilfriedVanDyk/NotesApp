@@ -33,9 +33,10 @@
                 <!-- basistabel: notities tonen--------------- -->
                 <ng-container matColumnDef="ToonAlleNotities">
                     <th mat-header-cell *matHeaderCellDef>Toon notities</th>
-                    <td mat-cell *matCellDef="let element"> <Button mat-raised-button
+                    <td mat-cell *matCellDef="let element"> <Button mat-raised-button [routerLink]="['/notities', element.name]"
                             (click)="GetNotesComponent(element.name)">Toon notities van {{element.name}}</Button>
                     </td>
+                   
                 </ng-container>
 
                 <!-- basistabel: gebruiker verwijderen --------------- -->

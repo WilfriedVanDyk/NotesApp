@@ -1,98 +1,86 @@
-     <h3><label for="search-box">Notities van {{naamGebruiker}}</label></h3>
-    
-<!--    
-    <table id="tabelNotities" mat-table [dataSource]= "tabelnotities "> 
-         <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> id </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container> 
-        <ng-container matColumnDef="content">
-            <th mat-header-cell *matHeaderCellDef> Notities van {{naamGebruiker}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
-        </ng-container>
-         <ng-container matColumnDef="userId">
-    <th mat-header-cell *matHeaderCellDef> idName </th>
-    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
-    </ng-container>
-        <ng-container matColumnDef="categorie">
-            <th mat-header-cell *matHeaderCellDef> Categorie </th>
-            <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
-        </ng-container>
+<h3 *ngIf="!updateBool"><label for="search-box">Notities van {{naamGebruiker}}</label></h3>
 
-        <ng-container matColumnDef="verwijderen">
-            <th mat-header-cell *matHeaderCellDef> verwijderen </th>
-            <td mat-cell *matCellDef="let element" > <button mat-raised-button (click)="DeleteNotitie(element.id)">X</button> </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsNotes"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: displayedColumnsNotes"></tr>
-    </table>
-  -->
-  
-    <!-- <p></p>   
+<!-- <p></p>   
 <h4>-- Change Log --</h4>
     <div *ngFor="let chg of changeLog">{{chg}}</div>
     <p></p> -->
- 
-  
 
-   <table id="tabelNotities"  mat-table [dataSource]= "notities$ | async" 
-   matSort matSortActive="categorie" matSortDirection="desc">
-        <!-- <ng-container matColumnDef="id">
+<table *ngIf="!updateBool" id="tabelNotities" mat-table [dataSource]="notities$ | async" matSort matSortActive="categorie"
+    matSortDirection="desc">
+    <!-- <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> id </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
 </ng-container> -->
-        <ng-container matColumnDef="content">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Notities van {{naamGebruiker}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
-        </ng-container>
-        <!-- <ng-container matColumnDef="userId">
+    <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Notities van {{naamGebruiker}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="userId">
     <th mat-header-cell *matHeaderCellDef> idName </th>
     <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
 </ng-container> -->
-        <ng-container matColumnDef="categorie">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Categorie </th>
-            <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
-        </ng-container>
+    <ng-container matColumnDef="categorie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Categorie </th>
+        <td mat-cell *matCellDef="let element"> {{element.categorie}} </td>
+    </ng-container>
 
-        <ng-container matColumnDef="verwijderen">
-            <th mat-header-cell *matHeaderCellDef > verwijderen </th>
-            <td mat-cell *matCellDef="let element"> <button mat-raised-button  (click)="DeleteNotitie(element.id)">X</button> </td>
-        </ng-container>
+    <ng-container matColumnDef="patch">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> update </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-raised-button (click)="Update(element.id)" [title]="update">O</button>
+            <!-- <a [title]="update" [routerLink]="['/notitie', element.id]">
+                {{ element.id }}
+              </a> -->
+        </td>
+    </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsNotes"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: displayedColumnsNotes"></tr>
-    </table>
+    <ng-container matColumnDef="verwijderen">
+        <th mat-header-cell *matHeaderCellDef> verwijderen </th>
+        <td mat-cell *matCellDef="let element"> <button mat-raised-button (click)="DeleteNotitie(element.id)"
+                [title]="verwijderen">X</button> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsNotes"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayedColumnsNotes"></tr>
+</table>
 <!-- 
    <div *ngFor="let notitie of notities$ | async " >
         <li *ngIf="(filterBoolean || notitie.categorie===categorieFilter)">
             <span >{{notitie.categorie}}</span><span>{{notitie.content}}</span> <button mat-raised-button  (click)="DeleteNotitie(notitie.id)">X</button>
         </li>
     </div> -->
-        
-      
-   
 
 
 
-    <h5><label >Zoeken in Notities van {{naamGebruiker}}</label></h5>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)"/>
 
-    <h5><label >Filteren op categorie in Notities van {{naamGebruiker}}</label></h5>
-     <mat-form-field >
+
+<div *ngIf="!updateBool">
+    <h5><label>Zoeken in Notities van {{naamGebruiker}}</label></h5>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+    <h5><label>Filteren op categorie in Notities van {{naamGebruiker}}</label></h5>
+    <mat-form-field>
         <mat-label>Filteren op categorie in Notities van {{naamGebruiker}}</mat-label>
-        <mat-select  [(value)]="categorieFilter">
-            <mat-option>--</mat-option>
+        <mat-select [(value)]="categorieFilter">
+            <!-- <mat-option>--</mat-option> -->
             <mat-option *ngFor="let categorie of categorieArray" [value]="categorie">
                 <p>{{categorie}}</p>
             </mat-option>
         </mat-select>
         <mat-hint> categorie selecteren</mat-hint>
-    </mat-form-field> 
-    
-        <button mat-raised-button  (click)="Filter()">Filter</button>
-    
+    </mat-form-field>
 
-    <!-- <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <button mat-raised-button  (click)="Filter()">Filter</button>
-      </mat-form-field> -->
+
+    <!-- filter button -->
+    <button mat-raised-button (click)="Filter()">Filter</button>
+
+</div>
+
+
+
+<div *ngIf="updateBool">
+    <app-update-notitie [categorieArray]=categorieArray [noteToPatch]=noteToPatch [notities$]=notities$
+        [naamGebruiker]=naamGebruiker>
+
+    </app-update-notitie>
+</div>

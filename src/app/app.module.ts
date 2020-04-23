@@ -13,13 +13,15 @@ import { AppRoutingModule } from './app-routing.module';
 import {TabelComponent} from './Tabel/Tabel.component';
 import {TitelComponent} from './Titel/Titel.component';
 import {ZoekenContentNotitiesComponent} from './zoeken-content-notities/zoeken-content-notities.component';
+import {UpdateNotitieComponent} from './update-notitie/update-notitie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabelComponent,
     TitelComponent,
-    ZoekenContentNotitiesComponent,    
+    ZoekenContentNotitiesComponent,
+    UpdateNotitieComponent,   
   ],
   imports: [
     BrowserModule,

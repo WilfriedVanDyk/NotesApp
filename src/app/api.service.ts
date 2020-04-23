@@ -21,7 +21,7 @@ export class APIService {
   }
 
   DeleteGebruikerEnNotitie = (naam: string) => {
-    console.log("in de service deletemethod!");
+   // console.log("in de service deletemethod!");
     let naamEncoded = encodeURIComponent(naam);
     let encodedUri = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users?name=') + naamEncoded; 
     console.log(encodedUri);
@@ -36,12 +36,12 @@ export class APIService {
   //req.params: { "userId": "34", "bookId": "8989" }
 
   AddNotitie = (naam: string, notitie: string, categorie: string) => {
-    console.log('in de addNotitie binnen ' + naam +" " + notitie+" "  + categorie);
+    //console.log('in de addNotitie binnen ' + naam +" " + notitie+" "  + categorie);
     let encodedUri1 = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users/');
     let naamUri = encodeURIComponent(naam);
     let encodeUri2 = encodeURI('/notes');
     let encodedUri = encodedUri1 + naamUri + encodeUri2;
-    console.log(encodedUri);
+    //console.log(encodedUri);
     return this.http.post(encodedUri, { content: notitie , categorie: categorie});
   }
 
@@ -50,6 +50,18 @@ export class APIService {
     let encodedUri = encodeURI(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}`);
     return this.http.get<Notities[]>(encodedUri);
   }
+
+  GetOneNote = (id:number):Observable<Notities> => {
+    console.log("in de apiService getOneNote: id is "+id);
+    let encodedUri=encodeURI(`https://jensjorisdecorte-backend-example-5.glitch.me/note/?id=${id}`);
+    return this.http.get<Notities>(encodedUri);
+  }
+ //Patch notitie (inhoud en/of categorie)/////////////////////////////////////////////////////////////////
+ PatchNote = (notitie:Notities):Observable<Notities> => {
+  console.log("in de apiService PatchNote:content is "+notitie.content);
+  let http = `https://jensjorisdecorte-backend-example-5.glitch.me/note`;
+  return this.http.patch<Notities>(http,{notitie});
+}
 
   //Te doen: 
   //zoek in notities van een gebruiker///////////////////////////////////////////////////////////////////////
@@ -60,14 +72,13 @@ export class APIService {
     let naamEncoded = encodeURIComponent(naam);
     let termEncoded=encodeURIComponent(term);
 let categorieEncoded=encodeURIComponent(categorie);
-    console.log("in apiService Search: "+naam +" term: " +term +" categorie: "+ categorie);
+   // console.log("in apiService Search: "+naam +" term: " +term +" categorie: "+ categorie);
     let http = `https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${termEncoded}&categorie=${categorieEncoded}`;
-    console.log(http);
-    return this.http.get<Notities[]>(`https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${termEncoded}&categorie=${categorieEncoded}`);    
+   // console.log(http);
+    return this.http.get<Notities[]>(http);    
   }
 
-  //Patch notitie (inhoud en/of categorie)/////////////////////////////////////////////////////////////////
-
+ 
 
   //delete notitie////////////////////////////////////////////////////////////
   DeleteNotitie = (id:number) => {

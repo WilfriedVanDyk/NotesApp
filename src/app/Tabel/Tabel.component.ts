@@ -17,7 +17,7 @@ export class TabelComponent implements OnInit {
 
   ngOnInit() { }
   //categorieControl = new FormControl('', Validators.required);
-  categorieArray: string[] = ["Privé", "Werk", "Vrije Tijd"];
+  categorieArray: string[] = ["--","Privé", "Werk", "Vrije Tijd"];
   userList: Array<Gebruiker> = [];
   noteList: Notities[];
   displayedColumnsUsers: string[] = ["Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
@@ -147,12 +147,6 @@ export class TabelComponent implements OnInit {
     });
    
   }
-
- 
-
-  // FilterCategorie = (categorie:string) => {
-  //   //this.noteList.filter
-  // }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -161,7 +155,6 @@ export class TabelComponent implements OnInit {
     if (window.confirm("Ben je zeker dat je de gebruiker wil verwijderen?")) {
 
       this.service.DeleteGebruikerEnNotitie(naamVerwijderen).subscribe((response) => {
-        console.log("in de service component deletemethod!");
         this.verwijderGebruikerBoodschap = JSON.stringify(response);
         this.boodschapObject = JSON.parse(this.verwijderGebruikerBoodschap);
         console.log("een response: " + this.boodschapObject.success);
