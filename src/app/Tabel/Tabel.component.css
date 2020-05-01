@@ -1,30 +1,29 @@
 div {
     margin:10px;
-    background-color:rgb(134, 134, 173);
+    background-color:rgb(168, 148, 190);
     align-items:center;
    
 }
 
+table {margin: 5px}
+th {   margin-left: 20px;
+    background-color:rgb(224, 213, 233);
+    align-items:center;}
+
+td {    
+    background-color:rgb(235, 235, 241);
+        align-items:center;}
 
 
 button {
     margin: 5px;
 }
-
-#tabelNotities{
-    margin-top: 50px;
-    min-width: 350px;
-    align-content:center;
-    text-align: center;
-    align-self: center;
-}
-
   
 #naamToevoegen {width: 50%;}
 
 #addUser {
     border-radius: 25px;
-  background: rgb(158, 167, 218);
+  background: rgb(155, 126, 177);
   padding: 20px;
   width: 200px;
  
@@ -34,7 +33,7 @@ button {
 }
 #notitieInput {
     
-    margin:10px;
+    margin:1px;
     width:50%;
     min-width: 300px;
 }

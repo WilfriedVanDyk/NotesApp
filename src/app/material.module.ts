@@ -7,7 +7,7 @@ import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
 imports: [MatButtonModule, MatInputModule, MatTableModule, MatSelectModule, MatSortModule],
-exports: [MatButtonModule, MatInputModule, MatTableModule, MatSelectModule]
+exports: [MatButtonModule, MatInputModule, MatTableModule, MatSelectModule, MatSortModule]
 })
 
 export class MaterialModule {

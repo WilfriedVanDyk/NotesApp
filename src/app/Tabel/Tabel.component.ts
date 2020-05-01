@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { APIService } from '../api.service';
 import { Gebruiker } from '../gebruiker';
 import { Notities } from '../notities';
-import { Observable, Subject } from 'rxjs';
-
-
-//import {FormControl, Validators} from '@angular/forms';
+import {MatSort} from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 
 
 @Component({
@@ -13,43 +11,46 @@ import { Observable, Subject } from 'rxjs';
   templateUrl: './Tabel.component.html',
   styleUrls: ['./Tabel.component.css']
 })
-export class TabelComponent implements OnInit {
 
-  ngOnInit() { }
-  //categorieControl = new FormControl('', Validators.required);
+
+
+export class TabelComponent implements OnInit {  
   categorieArray: string[] = ["--","Privé", "Werk", "Vrije Tijd"];
-  userList: Array<Gebruiker> = [];
   noteList: Notities[];
-  displayedColumnsUsers: string[] = ["Naam", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
-  displayedColumnsNotes: string[] = ["content", "categorie", "verwijderen"];//"id", ,"userId"
+  
 
-  naamNotitiesOphalen: string;
-  ingegevenNaamToevoegen: string;
-  ingegevenNaamNotitie: string;
-  notitieToevoegen: string;
-  categorieToevoegen: string;
-  user: string;
   boodschapNaamToevoegen: string;
   boodschapToevoegen: string;
   boodschapCategorieToevoegen: string;
   boodschapObject;
+  categorieToevoegen: string;
+  ingegevenNaamToevoegen: string;
+  ingegevenNaamNotitie: string;
+  naamNotitiesOphalen: string;
+  notitieToevoegen: string; 
+  user: string;  
   verwijderGebruikerBoodschap: string;
 
   wordtNotitieToegevoegd: boolean = false;
   toonNotities: boolean = false;  
   isUserVerwijdert: boolean = false;
-  addUser: boolean = false;
+  addUser: boolean = false;  
 
+  displayedColumnsUsers: string[] = ["name", "Notitie", "ToonAlleNotities", "ButtonVerwijderAlles"]; //"Id",
+  userList:Array<Gebruiker>;
+  //dataSource:MatTableDataSource<Gebruiker>;
   constructor(private service: APIService) {
     this.service.getUsers().subscribe((data: Array<Gebruiker>) => {
-      console.log(data);
-      this.userList = data;
+      this.userList = data;    
+      console.log(data); 
     });
   }
-
+   
+ ngOnInit() {}
+ 
   UserlistRefresh = () => this.service.getUsers().subscribe((data: Array<Gebruiker>) => {
-    console.log(data);
-    this.userList = data;
+    //console.log(data);
+    this.userList=data;   
   });
 
   PopUpAdduser = () => {

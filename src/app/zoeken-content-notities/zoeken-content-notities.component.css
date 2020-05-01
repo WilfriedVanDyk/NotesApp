@@ -1,0 +1,30 @@
+div {
+    margin:20px;
+    background-color:rgb(226, 220, 231);
+   
+    align-items:center;
+}
+table {margin: 20px}
+button {margin:20px;}
+label{
+    margin-left: 10px;
+    padding:10px;
+}
+input{ margin-left: 20px;
+    padding:10pxS}
+
+th {  
+    padding-right: 5px;  
+    background-color:rgb(224, 213, 233);
+    align-items:center;}
+
+td {
+    padding-right: 5px;
+    background-color:rgb(235, 235, 241);
+        align-items:center;
+        max-width: 100px;
+        word-wrap: break-word;
+         
+    overflow: hidden;
+    overflow-x: auto }
+

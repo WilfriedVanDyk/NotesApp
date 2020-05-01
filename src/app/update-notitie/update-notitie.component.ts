@@ -27,12 +27,10 @@ export class UpdateNotitieComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // boodschapToevoegen;
-  // boodschapObject;
   PatchNotitieComponent = () => {
 console.log("notitie in update: "+ this.noteToPatch.categorie +" "+ this.noteToPatch.content);
 this.service.PatchNote(this.noteToPatch).subscribe();
-//this.service.GetNotes(this.naamGebruiker).subscribe();
+
 
   }
 }

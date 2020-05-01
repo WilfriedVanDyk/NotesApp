@@ -20,15 +20,12 @@ export class APIService {
     return this.http.post(encodedUri, { name: naam });
   }
 
-  DeleteGebruikerEnNotitie = (naam: string) => {
-   // console.log("in de service deletemethod!");
+  DeleteGebruikerEnNotitie = (naam: string) => { 
     let naamEncoded = encodeURIComponent(naam);
     let encodedUri = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users?name=') + naamEncoded; 
     console.log(encodedUri);
     return this.http.delete(encodedUri);
   }
-
-
 
   //routing in expres...
   //routing: Route path: /users/:userId/books/:bookId
@@ -36,12 +33,10 @@ export class APIService {
   //req.params: { "userId": "34", "bookId": "8989" }
 
   AddNotitie = (naam: string, notitie: string, categorie: string) => {
-    //console.log('in de addNotitie binnen ' + naam +" " + notitie+" "  + categorie);
     let encodedUri1 = encodeURI('https://jensjorisdecorte-backend-example-5.glitch.me/users/');
     let naamUri = encodeURIComponent(naam);
     let encodeUri2 = encodeURI('/notes');
     let encodedUri = encodedUri1 + naamUri + encodeUri2;
-    //console.log(encodedUri);
     return this.http.post(encodedUri, { content: notitie , categorie: categorie});
   }
 
@@ -63,22 +58,14 @@ export class APIService {
   return this.http.patch<Notities>(http,{notitie});
 }
 
-  //Te doen: 
   //zoek in notities van een gebruiker///////////////////////////////////////////////////////////////////////
   searchNotes = (naam:string, term: string, categorie:string):Observable<Notities[]> => {
-    // if (!term.trim()) {
-    //   return of([]);
-    // }
     let naamEncoded = encodeURIComponent(naam);
     let termEncoded=encodeURIComponent(term);
-let categorieEncoded=encodeURIComponent(categorie);
-   // console.log("in apiService Search: "+naam +" term: " +term +" categorie: "+ categorie);
+    let categorieEncoded=encodeURIComponent(categorie);
     let http = `https://jensjorisdecorte-backend-example-5.glitch.me/notes/?name=${naamEncoded}&zoekterm=${termEncoded}&categorie=${categorieEncoded}`;
-   // console.log(http);
     return this.http.get<Notities[]>(http);    
   }
-
- 
 
   //delete notitie////////////////////////////////////////////////////////////
   DeleteNotitie = (id:number) => {

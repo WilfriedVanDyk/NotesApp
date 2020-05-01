@@ -25,6 +25,7 @@ export class ZoekenContentNotitiesComponent implements OnInit, OnChanges { //Aft
   @Input() tabelnotities: Observable<Notities>;
   @Input() categorieArray: string[];
   categorieFilter: string="--";
+  
   displayedColumnsNotes: string[] = ["content", "categorie","patch", "verwijderen"];//"id", ,"userId"
 
   notities$: Observable<Notities[]>;
@@ -64,14 +65,11 @@ export class ZoekenContentNotitiesComponent implements OnInit, OnChanges { //Aft
   }
 
 
-  Filter = () => {
-    //this.searchTerms.next(this.categorieFilter);
+  Filter = () => { 
     this.notities$ = this.searchTermsObservable.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => {
-        //console.log("categoriefilter: " +this.naamGebruiker + " term: "+ term+ "categorie: "+ this.categorieFilter);
-        //if (this.categorieFilter === undefined) { this.categorieFilter = ""; }  //werkt niet met categorie === undefined !!!!!!!!   waarom?   
+      switchMap((term: string) => {      
         return this.service.searchNotes(this.naamGebruiker, term, this.categorieFilter);
       })
     );
